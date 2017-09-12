@@ -1,0 +1,1 @@
+var dataunassigned ='{"data":[{"color":"FF0000","label":"Unassigned Calls","value":"1"}],"chart":{"plotbordercolor":"FFFFFF","bgcolor":"FFFFFF,FFFFFF","numberprefix1":"$","showborder":"0","showvalues":"1","showlegend":"1","caption":"Unassigned Calls","showpercentagevalues1":"1","issmartlineslanted":"0","showlabels":"1"}}';
