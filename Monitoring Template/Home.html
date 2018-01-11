@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" http-equiv="refresh" content="120">
+    <title>Remedy Monitoring Site</title>
+    <link rel="stylesheet" href="Content/css/jqueryslide.css" type="text/css" />
+    <link rel="stylesheet" href="Content/css/bootstrap.css" type="text/css">
+    <link href="htmlsrc/style.css" rel="stylesheet" type="text/css">
+    <link href="htmlsrc/prettify.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="htmlsrc/bootstrap.min.css">
+    <script type="text/javascript" src="htmlsrc/Charts/jquery.min.js"></script>
+    <script language="JavaScript" src="htmlsrc/Charts/FusionCharts.js"></script>
+    <script type="text/javascript" src="htmlsrc/json2.js"></script>
+    <script type="text/javascript" src="htmlsrc/prettify.js"></script>
+    <script type="text/javascript" src="htmlsrc/lib.js"></script>
+</head>
+
+<body>
+
+    <script type="text/javascript" src="htmlsrc/jsonfile.js" ></script>
+    <script type="text/javascript" src="htmlsrc/jsonresource.js" ></script>
+    <script type="text/javascript" src="htmlsrc/jsonpriority.js" ></script>
+    <script type="text/javascript" src="htmlsrc/jsonunassigned.js" ></script>
+    <script type="text/javascript" src="htmlsrc/jsonage.js" ></script>
+    <script type="text/javascript" src="htmlsrc/jsonbreach.js" ></script>
+
+    <div class="sliderpanel">
+        <div class="tab"></div>
+    </div>
+    <div class="sliderpanelright">
+        <div class="tab"></div>
+    </div>
+    <div class="coverup">
+        <div class="coverfocus">
+        </div>
+        <br/>
+        <div class="iconclose">
+            <span style="align-content:center;"><p class="glyphicon glyphicon-remove" style="font-size:40px; color:black !important;"></p></span>
+        </div>
+    </div>
+    <!-- Add all page content inside this div if you want the side nav to push page content to the right (not used if you only want the sidenav to sit on top of the page -->
+
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar9">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="brand-centered">
+                <a class="navbar-brand" style="margin-right: 10px; padding:0;">Remedy Monitoring Site</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-left">
+                    <li>
+                        <p class="central"><span class="glyphicon glyphicon-chevron-left"></span>Open Div 1</p>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><p class="centralopp">Open Div 2<span class="glyphicon glyphicon-chevron-right"></span></p></li>
+                </ul>
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+        <!--/.container-fluid -->
+    </nav>
+
+    <div class="container" class="fixedRow">
+        <div class="row" style="min-height:100% !important;">
+            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 largetab">
+                <span class="expand glyphicon glyphicon-new-window link1"></span>
+                <div id='Monitoring'>
+                    Monitoring Charts will load here.
+                </div>
+            </div>
+            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 largetab">
+                <span class="expand glyphicon glyphicon-new-window link2"></span>
+                <div id='age-container'>
+                    Age Analysis Charts will load here.
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 largetab">
+                <span class="expand glyphicon glyphicon-new-window link3"></span>
+                <div id='unassigned-container'>
+                    Unassigned Charts will load here.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" class="fixedRow">
+        <div class="row">
+            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 largetab">
+                <span class="expand glyphicon glyphicon-new-window link4"></span>
+                <div id='breach-container' style="margin:auto;max-width: 100%; font-size: 11px !important; display: table;">
+                    <p style="margin:auto;text-align:center;color:#009B08;font-size:22px;">No Unassigned Calls</p>
+                </div>
+            </div>
+            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 largetab">
+                <span class="expand glyphicon glyphicon-new-window link5"></span>
+                <div id='resource-container'>Resource Charts will load here.</div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 largetab">
+                <span class="expand glyphicon glyphicon-new-window link6"></span>
+                <div id='priority-container'>Priority Charts will load here.</div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        document.getElementById("breach-container").innerHTML = databreach;
+        document.getElementById("breach-container").style.overflow = "scroll";
+    </script>
+
+    <script type="text/javascript">
+        var h = window.innerHeight-90;
+        FusionCharts.setCurrentRenderer('javascript');
+        var chart = new FusionCharts( "HeatMap", "ChartId2","100%","400","0");
+        chart.setJSONData(dataString);
+        //chart.setJSONUrl("data.json")
+        chart.render("Monitoring");
+    </script>
+
+    <script type="text/javascript">
+        var h = window.innerHeight-90;
+        FusionCharts.setCurrentRenderer('javascript');
+        //var chart = new FusionCharts( "Column2D", "ChartId2","47%","400","0");
+        var chart = new FusionCharts("Doughnut2D", "resource-container1", "100%","400","0", "1" );
+        chart.setJSONData(dataunassigned);
+        //chart.setJSONUrl("data.json")
+        chart.render("unassigned-container");
+    </script>
+
+    <script type="text/javascript">
+        var h = window.innerHeight-90;
+        FusionCharts.setCurrentRenderer('javascript');
+        //var chart = new FusionCharts( "Column2D", "ChartId2","47%","400","0");
+        var chart = new FusionCharts("Column3D", "resource-container1", "100%","400","0", "1" );
+        chart.setJSONData(dataresource);
+        //chart.setJSONUrl("data.json")
+        chart.render("resource-container");
+    </script>
+
+    <script type="text/javascript">
+        var h = window.innerHeight-90;
+        FusionCharts.setCurrentRenderer('javascript');
+        //var chart = new FusionCharts( "Column2D", "ChartId2","47%","400","0");
+        var chart = new FusionCharts("Doughnut2D", "priority-container1", "100%","400","0", "1" );
+        chart.setJSONData(datapriority);
+        //chart.setJSONUrl("data.json")
+        chart.render("priority-container");
+    </script>
+
+    <script type="text/javascript">
+        var h = window.innerHeight-90;
+        FusionCharts.setCurrentRenderer('javascript');
+        //var chart = new FusionCharts( "Column2D", "ChartId2","47%","400","0");
+        var chart = new FusionCharts("Column3D", "priority-container1", "100%","400","0", "1" );
+        chart.setJSONData(dataage);
+        //chart.setJSONUrl("data.json")
+        chart.render("age-container");
+    </script>
+
+    <p align="center">&nbsp;</p>
+
+    <!-- action buttons -->
+    <div class="qua-button-holder" style="display:none">
+        <a class="qua qua-button view-chart-data" href="javascript:void(0)"><span>View XML</span></a>
+        <a class="qua qua-button view-chart-data" href="javascript:void(0)"><span>View JSON</span></a>
+    </div>
+
+    <!-- data viewer -->
+    <div class="show-code-block">
+        <span id="titlebar">XML</span>
+        <div class="show-code-close-icon"><a href="javascript:void(0)"><img src="../assets/ui/images/close.gif" /></a></div>
+        <div class="clear"></div>
+        <pre class="prettyprint"></pre>
+        <div class="show-code-close-btn"><a class="qua qua-button" href="javascript:void(0)"><span>Close</span></a></div>
+    </div>
+
+    <script src="Content/js/bootstrap.js"></script>
+    <script src="scripts/jquery-3.2.1.min.js"></script>
+    <script src="scripts/jquery-ui-effects.custom.min.js"></script>
+    <script src="scripts/jqueryslide.js"></script>
+</body>
+</html>
